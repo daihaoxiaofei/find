@@ -1,11 +1,13 @@
 package okex
 
 import (
-	"find/pkg/config"
 	"fmt"
-	"github.com/ethereum/go-ethereum/common/hexutil"
 	"math/big"
 	"testing"
+
+	"github.com/ethereum/go-ethereum/common/hexutil"
+
+	"find/pkg/config"
 )
 
 func TestGetBalance(t *testing.T) {

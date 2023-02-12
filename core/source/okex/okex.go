@@ -1,6 +1,7 @@
 package okex
 
 import (
+	"encoding/json"
 	"find/core/keypair"
 	"find/core/source/helpfunc"
 	"find/pkg/glog"
@@ -31,14 +32,20 @@ func NewClient(url string, initPNum int) *Client {
 func (c *Client) Find(ad <-chan keypair.Pair) {
 	errFun := func(err error) {
 		rpcHTTPError, ok := err.(rpc.HTTPError)
-		// 请求过于频繁
-		if ok && rpcHTTPError.StatusCode == 429 {
+		if ok {
+			glog.Debug(`errFun`, zap.String(`rpcHTTPError`, fmt.Sprintf("%#v\n", rpcHTTPError)))
 			return
 		}
 
-		_, ok = err.(*url.Error)
+		urlError, ok := err.(*url.Error)
 		if ok {
-			// fmt.Printf("eT2.Err: %#v\n", urlError.Err)
+			glog.Debug(`errFun`, zap.String(`urlError`, fmt.Sprintf("%#v\n", urlError)))
+			return
+		}
+
+		jsonSyntaxError, ok := err.(*json.SyntaxError)
+		if ok {
+			glog.Debug(`errFun`, zap.String(`jsonSyntaxError`, fmt.Sprintf("%#v\n", jsonSyntaxError)))
 			return
 		}
 		glog.Error(c.from+" Cli.Call 未知错误:", zap.String(`err`, fmt.Sprintf("%#v\n", err)))

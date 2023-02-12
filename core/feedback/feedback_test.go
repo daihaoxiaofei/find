@@ -29,9 +29,9 @@ func Test_struct(t *testing.T) {
 		account := common.HexToAddress(addr.Address)
 		balance, err := client.BalanceAt(ctx, account, nil)
 		if err != nil {
-			rpcHTTPError, ok := err.(rpc.HTTPError)
+			_, ok := err.(rpc.HTTPError)
 			// 请求过于频繁 需要休眠
-			if ok && rpcHTTPError.StatusCode == 429 {
+			if ok {
 				return false
 			}
 

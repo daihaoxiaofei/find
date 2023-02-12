@@ -30,18 +30,15 @@ func NewClient(url string, initPNum int) *Client {
 
 func (c *Client) Find(ad <-chan keypair.Pair) {
 	errFun := func(err error) {
-		_, ok := err.(rpc.HTTPError)
-		// 请求过于频繁
+		rpcHTTPError, ok := err.(rpc.HTTPError)
 		if ok {
-			// if rpcHTTPError.StatusCode == 429 || rpcHTTPError.StatusCode==403{
-			//
-			// }
+			glog.Debug(`errFun`, zap.String(`rpcHTTPError`, fmt.Sprintf("%#v\n", rpcHTTPError)))
 			return
 		}
 
-		_, ok = err.(*url.Error)
+		urlError, ok := err.(*url.Error)
 		if ok {
-			// fmt.Printf("eT2.Err: %#v\n", urlError.Err)
+			glog.Debug(`errFun`, zap.String(`urlError`, fmt.Sprintf("%#v\n", urlError)))
 			return
 		}
 		glog.Error(c.from+" Cli.Call 未知错误:", zap.String(`err`, fmt.Sprintf("%#v\n", err)))

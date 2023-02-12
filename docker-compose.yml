@@ -1,0 +1,8 @@
+version: '3'
+services:
+    find:
+        container_name: find
+        image: find
+        volumes:
+            - ./log:/log
+            - ./config.yaml:/config.yaml

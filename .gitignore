@@ -4,12 +4,10 @@
 /log
 /test
 
-/config/config.yaml
+config.yaml
 
-find
 
-# 缓存文件夹
-*/cache/
+
 
 
 

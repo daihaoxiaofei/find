@@ -1,0 +1,44 @@
+# 配置文件模板
+Run:
+    LogLevel: info   # 模式 debug info error
+
+# 参考: https://blog.csdn.net/cljdsc/article/details/121499835
+# 可能的资源: https://www.theblockbeats.info/news/29601
+Source:
+    ThirdParty:
+        InitPNum: 30
+        URL:
+            - '你的infurasUrl'
+            - '你的infurasUrl 2'
+            - '你的本地eth节点'
+    Bsc:
+        InitPNum: 30
+        URL:
+            - 'https://bsc-dataseed.binance.org/'  # 无效
+            - 'https://bsc-dataseed1.defibit.io/'
+            - 'https://bsc-dataseed1.ninicoin.io/'
+    HECO:
+        InitPNum: 30
+        URL:
+            - 'https://http-mainnet.hecochain.com'
+    OKEX:
+        InitPNum: 30
+        URL:
+            - 'https://exchainrpc.okex.org' # 无效
+
+# 主要用于配置扫描到结果时接收通知的 邮件 钉钉告警 飞书通知 任选
+Notify:
+    FeiShu:
+        Open: 0 # 是否开启
+        Url:
+    DD:
+        Open: 0
+        Url: '钉钉告警 url'
+        Secret: 'Secret'
+    Email:
+        Open: 0
+        HOST:
+        PORT:
+        From:
+        Pwd:
+        To:
